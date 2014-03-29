@@ -71,7 +71,7 @@ class PartnerReference(Reference):
     partner = models.ForeignKey(Partner)
 
     def __str__(self):
-        return '{0} {1}: {2}'.format(self.partner, self.type, self.value)
+        return '{0} {1}: {2}'.format(self.partner, self.get_type_display(), self.value)
 
 
 @python_2_unicode_compatible
@@ -82,4 +82,4 @@ class ContactReference(Reference):
     contact = models.ForeignKey(Contact)
 
     def __str__(self):
-        return '{0} {1}: {2}'.format(self.partner, self.type, self.value)
+        return '{0} {1}: {2}'.format(self.partner, self.get_type_display(), self.value)
