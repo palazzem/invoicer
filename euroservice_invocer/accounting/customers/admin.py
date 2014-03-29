@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Partner, Contact, ContactReference, PartnerReference
+
+
+admin.site.register(Partner)
+admin.site.register(PartnerReference)
+admin.site.register(Contact)
+admin.site.register(ContactReference)
