@@ -83,7 +83,7 @@ class Invoice(Document):
         else:
             prefix = _('Proforma n.')
 
-        return '{0} {1}/{2}'.format(prefix, self.number, str(self.date.year)[-2:])
+        return '{0} {1}/{2}'.format(prefix, self.number or '_', str(self.date.year)[-2:])
 
 
 @python_2_unicode_compatible
@@ -116,7 +116,7 @@ class InvoicePayment(models.Model):
 class CreditNote(Document):
 
     def __str__(self):
-        return '{0} {1}/{2}'.format(_('Credit note n.'), self.number, str(self.date.year)[-2:])
+        return '{0} {1}/{2}'.format(_('Credit note n.'), self.number or '_', str(self.date.year)[-2:])
 
 
 @python_2_unicode_compatible
