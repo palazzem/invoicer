@@ -71,6 +71,7 @@ class DocumentRow(models.Model):
     description = models.CharField(_('Description'), max_length=200)
     quantity = models.PositiveIntegerField(_('Quantity'))
     amount = MoneyField(_('Amount'))
+    tax = models.ForeignKey(Tax, verbose_name=_('Tax'), blank=True, null=True)
 
     @property
     def value(self):
