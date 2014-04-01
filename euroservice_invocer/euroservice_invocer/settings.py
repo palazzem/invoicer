@@ -38,6 +38,7 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'djmoney',
     'accounting.customers',
+    'accounting.documents',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
