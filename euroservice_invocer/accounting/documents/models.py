@@ -104,3 +104,18 @@ class InvoicePayment(models.Model):
 
     def __str__(self):
         return '{0} {1} {2}'.format(_('Invoice n.'), _('paid'), self.date)
+
+
+@python_2_unicode_compatible
+class CreditNote(Document):
+
+    def __str__(self):
+        return '{0} {1}'.format(_('Credit note n.'), self.number)
+
+
+@python_2_unicode_compatible
+class CreditNoteRow(DocumentRow):
+    credit_note = models.ForeignKey(CreditNote, verbose_name=_('Credit note'))
+
+    def __str__(self):
+        return self.description
