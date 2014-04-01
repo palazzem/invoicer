@@ -35,19 +35,8 @@ class Tax(models.Model):
 
 
 class Document(models.Model):
-    number = models.PositiveIntegerField(_('Number'), null=True, blank=True)
-    date = models.DateField(_('Emission date'))
-    customer = models.ForeignKey(Partner, verbose_name=_('Customer'))
-
-    class Meta:
-        abstract = True
-        unique_together = (('date', 'number'),)
-
-
-@python_2_unicode_compatible
-class Invoice(Document):
     """
-    Invoice model.
+    Generic document model
     If "Number" is null then this invoice is a "proforma"
     """
     STATUS_CHOICE = (
@@ -57,14 +46,16 @@ class Invoice(Document):
     )
 
     status = models.PositiveSmallIntegerField(_('Status'), choices=STATUS_CHOICE, default=0)
-    payment_type = models.ForeignKey(PaymentType, verbose_name=_('Payment type'))
-    taxes = models.ManyToManyField(Tax, blank=True, null=True, verbose_name=_('Taxes'))
+    number = models.PositiveIntegerField(_('Number'), unique_for_year='date', null=True, blank=True)
+    date = models.DateField(_('Emission date'))
+    customer = models.ForeignKey(Partner, verbose_name=_('Customer'))
 
-    def __str__(self):
+    def validate_unique(self, *args, **kwargs):
         if self.number:
-            return '{0} {1}'.format(_('Invoice n.'), self.number)
-        else:
-            return '{0} {1}'.format(_('Proforma of'), self.date)
+            super(Document, self).validate_unique(*args, **kwargs)
+
+    class Meta:
+        abstract = True
 
 
 class DocumentRow(models.Model):
@@ -79,6 +70,20 @@ class DocumentRow(models.Model):
 
     class Meta:
         abstract = True
+
+
+@python_2_unicode_compatible
+class Invoice(Document):
+    payment_type = models.ForeignKey(PaymentType, verbose_name=_('Payment type'))
+    taxes = models.ManyToManyField(Tax, blank=True, null=True, verbose_name=_('Taxes'))
+
+    def __str__(self):
+        if self.number:
+            prefix = _('Invoice n.')
+        else:
+            prefix = _('Proforma n.')
+
+        return '{0} {1}/{2}'.format(prefix, self.number, str(self.date.year)[-2:])
 
 
 @python_2_unicode_compatible
@@ -111,7 +116,7 @@ class InvoicePayment(models.Model):
 class CreditNote(Document):
 
     def __str__(self):
-        return '{0} {1}'.format(_('Credit note n.'), self.number)
+        return '{0} {1}/{2}'.format(_('Credit note n.'), self.number, str(self.date.year)[-2:])
 
 
 @python_2_unicode_compatible
