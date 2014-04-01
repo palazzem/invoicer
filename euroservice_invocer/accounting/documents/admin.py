@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import PaymentType, Tax, Invoice, InvoiceRow, InvoicePayment, CreditNote, CreditNoteRow
+from .models import PaymentType, Tax, Invoice, InvoiceRow, InvoicePayment, CreditNote, CreditNoteRow, ExpenseNote
 
 
 admin.site.register(PaymentType)
@@ -10,3 +10,4 @@ admin.site.register(InvoiceRow)
 admin.site.register(InvoicePayment)
 admin.site.register(CreditNote)
 admin.site.register(CreditNoteRow)
+admin.site.register(ExpenseNote)

@@ -120,3 +120,15 @@ class CreditNoteRow(DocumentRow):
 
     def __str__(self):
         return self.description
+
+
+@python_2_unicode_compatible
+class ExpenseNote(models.Model):
+    description = models.CharField(_('Description'), max_length=200)
+    date = models.DateField(_('Date'))
+    amount = MoneyField(_('Amount'))
+    consumed = models.BooleanField(_('Consumed'), default=False)
+    customer = models.ForeignKey(Partner, verbose_name=_('Customer'))
+
+    def __str__(self):
+        return self.description
