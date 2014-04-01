@@ -66,11 +66,13 @@ class Invoice(models.Model):
 @python_2_unicode_compatible
 class InvoiceRow(models.Model):
     """
-    Single invoice element
+    Single invoice element.
+    "Taxable" means if this item should be taxed or not
     """
     description = models.CharField(_('Description'), max_length=200)
     quantity = models.PositiveIntegerField(_('Quantity'))
     amount = MoneyField(_('Amount'))
+    taxable = models.BooleanField(_('Taxable'), default=True)
     invoice = models.ForeignKey(Invoice, verbose_name=_('Invoice'))
 
     def __str__(self):
