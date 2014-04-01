@@ -34,8 +34,18 @@ class Tax(models.Model):
         return self.name
 
 
+class Document(models.Model):
+    number = models.PositiveIntegerField(_('Number'), null=True, blank=True)
+    date = models.DateField(_('Emission date'))
+    customer = models.ForeignKey(Partner, verbose_name=_('Customer'))
+
+    class Meta:
+        abstract = True
+        unique_together = (('date', 'number'),)
+
+
 @python_2_unicode_compatible
-class Invoice(models.Model):
+class Invoice(Document):
     """
     Invoice model.
     If "Number" is null then this invoice is a "proforma"
@@ -47,9 +57,6 @@ class Invoice(models.Model):
     )
 
     status = models.PositiveSmallIntegerField(_('Status'), choices=STATUS_CHOICE, default=0)
-    number = models.PositiveIntegerField(_('Number'), null=True, blank=True)
-    date = models.DateField(_('Emission date'))
-    customer = models.ForeignKey(Partner, verbose_name=_('Customer'))
     payment_type = models.ForeignKey(PaymentType, verbose_name=_('Payment type'))
     taxes = models.ManyToManyField(Tax, blank=True, null=True, verbose_name=_('Taxes'))
 
@@ -59,28 +66,31 @@ class Invoice(models.Model):
         else:
             return '{0} {1}'.format(_('Proforma of'), self.date)
 
+
+class DocumentRow(models.Model):
+    description = models.CharField(_('Description'), max_length=200)
+    quantity = models.PositiveIntegerField(_('Quantity'))
+    amount = MoneyField(_('Amount'))
+
+    @property
+    def value(self):
+        return self.quantity * self.amount
+
     class Meta:
-        unique_together = (('date', 'number'),)
+        abstract = True
 
 
 @python_2_unicode_compatible
-class InvoiceRow(models.Model):
+class InvoiceRow(DocumentRow):
     """
     Single invoice element.
     "Taxable" means if this item should be taxed or not
     """
-    description = models.CharField(_('Description'), max_length=200)
-    quantity = models.PositiveIntegerField(_('Quantity'))
-    amount = MoneyField(_('Amount'))
     taxable = models.BooleanField(_('Taxable'), default=True)
     invoice = models.ForeignKey(Invoice, verbose_name=_('Invoice'))
 
     def __str__(self):
         return self.description
-
-    @property
-    def value(self):
-        return self.quantity * self.amount
 
 
 @python_2_unicode_compatible
