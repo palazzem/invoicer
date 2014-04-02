@@ -81,7 +81,7 @@ class Invoice(Document):
         if self.number:
             prefix = _('Invoice n.')
         else:
-            prefix = _('Proforma n.')
+            prefix = _('Proforma')
 
         return '{0} {1}/{2}'.format(prefix, self.number or '_', str(self.date.year)[-2:])
 
