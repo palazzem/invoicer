@@ -38,6 +38,7 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'ui',
     'djmoney',
+    'rest_framework',
     'accounting.customers',
     'accounting.documents',
 )
