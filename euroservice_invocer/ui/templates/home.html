@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block body %}
-    <h1>Bootstrap starter template</h1>
+    <div data-ng-app="invoicer" data-ng-view></div>
 {% endblock body %}
+
+{% block css %}{% endblock css %}
+
+{% block js %}
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular-resource.min.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/controllers/main.js' %}"></script>
+{% endblock js %}
