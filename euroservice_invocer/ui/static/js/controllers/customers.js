@@ -1,7 +1,7 @@
 (function(angular) {
     var app = angular.module('invoicer');
 
-    app.controller('MainController', function() {
+    app.controller('CustomersController', function() {
         this.hello = 'Hello world';
     })
 })(angular);

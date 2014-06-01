@@ -39,8 +39,11 @@
         </div>
         {% if user.is_authenticated %}
             <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/customers">Customers</a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="pull-right"><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+                    <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
                 </ul>
             </div>
         {% endif %}
