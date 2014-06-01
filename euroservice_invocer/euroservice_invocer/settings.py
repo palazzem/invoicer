@@ -57,6 +57,11 @@ ROOT_URLCONF = 'euroservice_invocer.urls'
 
 WSGI_APPLICATION = 'euroservice_invocer.wsgi.application'
 
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates')
+)
+
+LOGIN_REDIRECT_URL = '/'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
