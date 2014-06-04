@@ -13,6 +13,7 @@ import os
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+ANGULAR_DIR = os.path.join(BASE_DIR, '..', 'angular-project')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -59,7 +60,8 @@ ROOT_URLCONF = 'euroservice_invocer.urls'
 WSGI_APPLICATION = 'euroservice_invocer.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates')
+    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(ANGULAR_DIR, 'app'),
 )
 
 LOGIN_REDIRECT_URL = '/'
@@ -92,6 +94,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(ANGULAR_DIR, 'app'),
+    #os.path.join(ANGULAR_DIR, '.tmp'),
+)
 
 # Django Money
 import moneyed
