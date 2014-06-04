@@ -31,6 +31,10 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
+      djangoStatic: {
+        files: ['<%= yeoman.app %>/*.html'],
+        tasks: ['djangoStatic:dev']
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
@@ -273,6 +277,12 @@ module.exports = function (grunt) {
       ]
     },
 
+    // Compile a base template with Django static template tag
+    djangoStatic: {
+      dev: {},
+      dist: {}
+    },
+
     // Test settings
     karma: {
       unit: {
@@ -292,6 +302,7 @@ module.exports = function (grunt) {
       'clean:server',
       'bowerInstall',
       'concurrent:server',
+      'djangoStatic:dev',
       'watch'
     ]);
   });
