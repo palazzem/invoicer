@@ -61,7 +61,7 @@ WSGI_APPLICATION = 'euroservice_invocer.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
-    os.path.join(ANGULAR_DIR, 'app'),
+    os.path.join(ANGULAR_DIR, '.tmp'),
 )
 
 LOGIN_REDIRECT_URL = '/'
@@ -97,7 +97,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(ANGULAR_DIR, 'app'),
-    #os.path.join(ANGULAR_DIR, '.tmp'),
+    os.path.join(ANGULAR_DIR, '.tmp'),
 )
 
 # Django Money
