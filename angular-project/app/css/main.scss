@@ -1,5 +1,7 @@
+$margin-top: 60px;
+
 body {
-    margin-top: 60px;
+    margin-top: $margin-top;
 }
 
 .form-signin {
