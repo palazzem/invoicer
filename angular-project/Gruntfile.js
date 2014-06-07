@@ -31,9 +31,9 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
-      djangoStatic: {
+      bridge: {
         files: ['<%= yeoman.app %>/*.html'],
-        tasks: ['djangoStatic:dev']
+        tasks: ['bridge:dev']
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
@@ -278,7 +278,7 @@ module.exports = function (grunt) {
     },
 
     // Compile a base template with Django static template tag
-    djangoStatic: {
+    bridge: {
       dev: {},
       dist: {}
     },
@@ -302,7 +302,7 @@ module.exports = function (grunt) {
       'clean:server',
       'bowerInstall',
       'concurrent:server',
-      'djangoStatic:dev',
+      'bridge:dev',
       'watch'
     ]);
   });
